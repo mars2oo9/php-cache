@@ -95,21 +95,16 @@ class PACACHE
 	private function doPaCacheNew($dsn)
 	{
 		global $dsn;
-	    $mArr	= array();
 	    $arr	= array();
-		$arr2	= array();
-		$cmd 	= "select id,contents,params from pa_contents where customerid = '$this->epid' and userid = '$this->uid' and status = 1";
+		$cmd 	= "sql";//sql
 		$rs  = odbc_exec($dsn,$cmd);	
 		while(odbc_fetch_row($rs))
 		{
-			$arr[odbc_result($rs,'id')]		= iconv("gbk//IGNORE","utf-8",odbc_result($rs,'contents'));
-			$arr2[odbc_result($rs,'id')]	= odbc_result($rs,'params');
+			$arr;//结果集数组
 		}
-		$mArr['con']	= $arr;
-		$mArr['par']	= $arr2;	
-	    $json = json_encode($mArr);
+	    $json = json_encode($arr);
 	    file_put_contents($this->cachepath,$json);
-	    return $mArr;
+	    return $arr;
 	}
 }
 ?>
